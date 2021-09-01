@@ -66,6 +66,8 @@ DELETED_BUG_SIGNATURE = "Deleted Bugzilla Bug"
 FORCE_UPDATES = False
 # Print some debug info
 DEBUG = False
+# If available, use the same GitHub Issue number as the Bugzilla bug number
+PRESERVE_IDS = True
 # Default XML file with Bugzilla export
 XML_FILE = "export.xml"
 # GitHub REST API URL
@@ -178,6 +180,11 @@ def github_issues_add(issues):
     Args:
         issues: Dictionary of issues converted from Bugzilla export.
     """
+    if not PRESERVE_IDS:
+        for id, issue_id in enumerate(sorted(issues)):
+            github_issue_add(id, issues[issue_id])
+        return
+
     id = 0
     while issues:
         id += 1
@@ -278,6 +285,8 @@ def github_issue_add_stable(id, issue):
             print("Error adding issue: issue %d does not exist" % id)
             exit(1)
         bug_id = bug_id_parse(github_issue["body"])
+        if not PRESERVE_IDS:
+            id = issue["id"] = bug_id
         if bug_id and bug_id != issue["id"]:
             print("Error adding issue: issue %d is not %d"
                   % (bug_id, issue["id"]))
@@ -285,7 +294,8 @@ def github_issue_add_stable(id, issue):
 
     # Default state for the newly created issues is open, so we need to update
     # the state and the renumbering comment.
-    github_issue_update(id, issue)
+    if PRESERVE_IDS:
+        github_issue_update(id, issue)
 
     return r
 
@@ -334,13 +344,16 @@ def github_issue_add_beta(id, issue):
                   r.json()["issue_url"])
             exit(1)
         issue_number = int(result.group(1))
+        if not PRESERVE_IDS:
+            id = issue_number
         if issue_number != id:
             print("Error adding issue: issue %d is not %d"
                   % (issue_number, id))
             exit(1)
 
     # Need to update the renumbering comment
-    github_issue_update(id, issue)
+    if PRESERVE_IDS:
+        github_issue_update(id, issue)
 
     return r
 
