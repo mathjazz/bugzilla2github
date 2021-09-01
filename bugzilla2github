@@ -67,7 +67,7 @@ FORCE_UPDATES = False
 # Print some debug info
 DEBUG = False
 # If available, use the same GitHub Issue number as the Bugzilla bug number
-PRESERVE_IDS = True
+PRESERVE_IDS = False
 # Default XML file with Bugzilla export
 XML_FILE = "export.xml"
 # GitHub REST API URL
@@ -83,8 +83,68 @@ GITHUB_TOKEN = ""
 # Global convertion dictionaries
 EMAIL2LOGIN = {
     "__name__": "email to GitHub login",
-    "123@example.com": "login",
-    "email@example.org": "berestovskyy",
+    ###
+    "m@owca.info": "mathjazz",
+    "earo@mozilla.com": "eemeli",
+    "axel@pike.org": "Pike",
+    "l10n@mozilla.com": "Pike",
+    "poke@jotes.work": "jotes",
+    "abowler@fastmail.com": "abowler2",
+    "mitchelloliver1991@gmail.com": "Mitch4sho",
+    "vishaliitr7@gmail.com": "VishalCR7",
+    "pfischbeck@googlemail.com": "PFischbeck",
+    "adrian@mozilla.com": "adngdb",
+    "me@mkelly.me": "Osmose",
+    "ryan@synca.io": "phlax",
+    ###
+    "francesco.lodolo@gmail.com": "flodolo",
+    "lebedel.delphine@gmail.com": "Delphine",
+    "pmo@mozilla.com": "peiying2",
+    "theo@mozillafoundation.org": "TheoChevalier",
+    "zbraniecki@mozilla.com": "zbraniecki",
+    "jbeatty@mozilla.com": "guerojeff",
+    "smalolepszy@gmail.com": "stasm",
+    "mozilla+bugcloser@davedash.com": "github-actions",
+    "wclouser@mozilla.com": "clouserw",
+    "sbennetts@mozilla.com": "psiinon",
+    "chris.lonnen@gmail.com": "lonnen",
+    "mconley@mozilla.com": "mikeconley",
+    ###
+    "mstanke@mozilla.cz": "MikkCZ",
+    "julenx@gmail.com": "julen",
+    "a.polivanchuk@outlook.com": "a-polivanchuk",
+    "stoyan.moz@gmx.com": "StoyanDimitrov",
+    "emin@mastizada.com": "mastizada",
+    "tomer.moz.bugs@tomercohen.com": "tomer",
+    "yfdyh000@gmail.com": "yfdyh000",
+    "a@bychek.ru": "BychekRU",
+    "amir.aharoni@mail.huji.ac.il": "amire80",
+    "jobaval10n@gmail.com": "Jobava",
+    "lasse.liehu@gmail.com": "lliehu",
+    "hubscher.remy@gmail.com": "Natim",
+    "cesperanc@gmail.com": "cesperanc",
+    "bellayet@gmail.com": "bellayet",
+    "aryx.bugmail@gmx-topmail.de": "Archaeopteryx",
+    "fryskefirefox@gmail.com": "Fjoerfoks",
+    "gion-andri@cantieni.info": "gion-andri",
+    "jordis@softcatala.cat": "jordis",
+    "petercpg@mail.moztw.org": "petercpg",
+    "piotrdrag@gmail.com": "piotrdrag",
+    "rimas@mozilla.lt": "rimas-kudelis",
+    "selim@sum.lu": "selimsumlu",
+    "merikes.lists@gmail.com": "merike",
+    "gmontagu@gmail.com": "gaby2300",
+    "milupo@sorbzilla.de": "milupo",
+    "marcelo.ghelman@gmail.com": "MarceloGhelman",
+    "rprys@yahoo.com": "rprys",
+    "meskobalazs@gmail.com": "meskobalazs",
+    "itiel_yn8@walla.com": "ItielMaN",
+    "alex_mayorga@yahoo.com": "alex-mayorga",
+    "upwinxp@gmail.com": "upwinxp",
+    "fios@akerbeltz.org": "akerbeltz",
+    "amir_farsi@ymail.com": "afarsi",
+    "sh.yaron@gmail.com": "yarons",
+    "jarifibrahim@gmail.com": "jarifibrahim",
 }
 STATUS2STATE = {
     "__name__": "status to GitHub state (stable APIv3)",
@@ -111,19 +171,21 @@ COMPONENT2LABELS = {
 }
 PRIORITY2LABELS = {
     "__name__": "priority to GitHub labels",
-    "Lowest": ["low priority"],
-    "Low": ["low priority"],
     "---": [],
-    "Normal": [],
-    "High": ["high priority"],
-    "Highest": ["high priority"],
+    "P1": ["P1"],
+    "P2": ["P2"],
+    "P3": ["P3"],
+    "P4": ["P4"],
+    "P5": ["P5"],
 }
 SEVERITY2LABELS = {
     "__name__": "severity to GitHub labels",
     "enhancement": ["enhancement"],
     "trivial": ["minor", "bug"],
     "minor": ["minor", "bug"],
-    "normal": ["bug"],
+    "normal": [],
+    "--": [],
+    "S3": [],
     "major": ["major", "bug"],
     "critical": ["major", "bug"],
     "blocker": ["major", "bug"],
