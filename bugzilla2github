@@ -128,6 +128,12 @@ SEVERITY2LABELS = {
     "critical": ["major", "bug"],
     "blocker": ["major", "bug"],
 }
+TYPE2LABELS = {
+    "__name__": "type to GitHub labels",
+    "defect": ["bug"],
+    "enhancement": ["enhancement"],
+    "task": ["task"],
+}
 RESOLUTION2LABELS = {
     "__name__": "resolution to GitHub labels",
     "FIXED": [],
@@ -863,6 +869,8 @@ def bug2issue(bug):
     issue["labels"].extend(str2list(PRIORITY2LABELS, bug.pop("priority")))
     # Convert severity to labels
     issue["labels"].extend(str2list(SEVERITY2LABELS, bug.pop("bug_severity")))
+    # Convert type to labels
+    issue["labels"].extend(str2list(TYPE2LABELS, bug.pop("bug_type")))
     # Convert resolution to labels
     if "resolution" in bug:
         issue["labels"].extend(
