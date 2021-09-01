@@ -729,7 +729,7 @@ def attachments2dict(attachments):
 
 def bugzilladate2githubdate(date):
 	    result = re.match(
-	        r'(\d\d\d\d-\d\d-\d\d) (\d\d:\d\d:\d\d) \+(\d\d)(\d\d)', date)
+	        r'(\d\d\d\d-\d\d-\d\d) (\d\d:\d\d:\d\d) [\+|\-](\d\d)(\d\d)', date)
 	    if not result:
 	        print("Date %s was not converted!" % date)
 	        exit(1)
