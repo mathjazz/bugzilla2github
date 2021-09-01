@@ -848,14 +848,14 @@ def bug2issue(bug):
     # Convert component to labels
     issue["labels"].extend(str2list(COMPONENT2LABELS, bug.pop("component")))
     # Convert bug_status to state
-    issue["state"] = str2list(STATUS2STATE, bug.pop("bug_status"))
     if USE_BETA_API:
         # Convert creation_ts to created_at
         issue["created_at"] = bugzilladate2githubdate(bug.pop("creation_ts"))
         # Convert delta_ts to updated_at
         issue["updated_at"] = bugzilladate2githubdate(bug.pop("delta_ts"))
         # Convert bug_status to closed
-        issue["closed"] = str2list(STATE2CLOSED_BETA, issue["state"])
+        state = str2list(STATUS2STATE, bug.pop("bug_status"))
+        issue["closed"] = str2list(STATE2CLOSED_BETA, state)
         if issue["closed"]:
             issue["closed_at"] = issue["updated_at"]
     else:
@@ -982,7 +982,6 @@ def new_issue(id, dummy):
     issue["created_at"] = datetime.datetime.utcnow().replace(
         microsecond=0).isoformat() + "Z"
     issue["updated_at"] = issue["created_at"]
-    issue["state"] = "closed"
     if USE_BETA_API:
         issue["closed"] = True
     else:
