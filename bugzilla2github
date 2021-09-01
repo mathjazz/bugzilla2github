@@ -731,9 +731,9 @@ def ids2ids(ids):
         return ""
     if isinstance(ids, list):
         for id in ids:
-            issue.append("#" + id)
+            issue.append(bugid2link(id))
     else:
-        issue.append("#" + ids)
+        issue.append(bugid2link(ids))
 
     return ", ".join(issue)
 
@@ -944,15 +944,12 @@ def bug2issue(bug):
     # Create the bug description
     body = []
     body.extend([
-        "# " + BUG_SIGNATURE + "%d" % issue["id"],
-        "Date: " + issue["created_at"],
-        "From: " + user_login,
-        "To:   " + ", ".join(issue["assignees"]),
+        "## " + bugid2link(str(issue["id"])),
+        "Bug Reporter: %s" % user_login,
     ])
     if "cc" in bug:
         body.append("CC:   " + emails2logins(bug.pop("cc")))
     # Extra information
-    body.append("")
     if "dup_id" in bug:
         body.append("Duplicates:   " + ids2ids(bug.pop("dup_id")))
     if "dependson" in bug:
@@ -965,7 +962,6 @@ def bug2issue(bug):
                 body.append("See also:     " + see_also)
         else:
             body.append("See also:     " + bug.pop("see_also"))
-    body.append("Last updated: " + issue["updated_at"])
     body.append("")
 
     # Put everything together
@@ -1022,6 +1018,10 @@ def bugs2dict(xml_root):
 ########################################################################
 
 
+def bugid2link(id):
+    return '[Bug {id}](https://bugzilla.mozilla.org/show_bug.cgi?id={id})'.format(id=id)
+
+
 def new_issue(id, dummy):
     """
     Creates a new issue.
@@ -1050,7 +1050,7 @@ def new_issue(id, dummy):
         issue["user.login"] = "bugzilla2github"
 
     body.extend([
-        "This issue was created automatically with %s" % NAME,
+        "*This issue was created automatically with [%s](https://github.com/mathjazz/bugzilla2github/).*" % NAME,
         "",
     ])
     if (dummy):
