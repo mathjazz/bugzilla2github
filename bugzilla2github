@@ -757,7 +757,7 @@ def comment2dict(comment, attachments):
     # Convert attachments if any
     if "attachid" in comment:
         body.extend([
-            attachments.pop(comment.pop("attachid")),
+            attachments[comment.pop("attachid")],
             ""
         ])
     body.append("")
