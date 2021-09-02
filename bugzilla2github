@@ -1060,7 +1060,7 @@ def new_issue(id, dummy):
         issue["user.login"] = "bugzilla2github"
 
     body.extend([
-        "*This issue was created automatically with [%s](https://github.com/mathjazz/bugzilla2github/).*" % NAME,
+        "*This issue was created automatically by a [script](https://github.com/mathjazz/bugzilla2github/).*",
         "",
     ])
     if (dummy):
