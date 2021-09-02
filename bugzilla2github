@@ -898,8 +898,7 @@ def bug2issue(bug):
     # Convert long_desc and attachment to comments
     issue["comments"].extend(comments2list(bug.pop("long_desc"), attachments))
     # Convert short_desc to title
-    issue["title"] = ("%s (" % bug.pop("short_desc") + BUG_SIGNATURE
-                      + "%d)" % issue["id"])
+    issue["title"] = bug.pop("short_desc")
     # Convert reporter to user login
     user_login = email2login(bug.pop("reporter"),
                              bug.pop("reporter.name", None))
