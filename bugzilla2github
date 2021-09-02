@@ -875,6 +875,9 @@ def bug2issue(bug):
     if "resolution" in bug:
         issue["labels"].extend(
             str2list(RESOLUTION2LABELS, bug.pop("resolution")))
+    # Add "good first issue" label to Mentored bugs
+    if "mentor" in bug:
+        issue["labels"].extend(["good first issue"])
 
     # Create the bug description
     body = []
