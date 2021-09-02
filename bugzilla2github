@@ -896,7 +896,13 @@ def bug2issue(bug):
     if "attachment" in bug:
         attachments = attachments2dict(bug.pop("attachment"))
     # Convert long_desc and attachment to comments
-    issue["comments"].extend(comments2list(bug.pop("long_desc"), attachments))
+    comments = bug.pop("long_desc")
+    if isinstance(comments, list):
+        description = comments.pop(0)
+        issue["comments"].extend(comments2list(comments, attachments))
+    else:
+        description = comments
+        issue["comments"] = []
     # Convert short_desc to title
     issue["title"] = bug.pop("short_desc")
     # Convert reporter to user login
@@ -961,6 +967,8 @@ def bug2issue(bug):
         else:
             body.append("See also:     " + bug.pop("see_also"))
     body.append("")
+    if "thetext" in description:
+        body.append(description["thetext"])
 
     # Put everything together
     if USE_BETA_API:
