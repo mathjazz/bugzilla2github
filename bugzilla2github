@@ -966,8 +966,12 @@ def bug2issue(bug):
                 body.append("See also:     " + see_also)
         else:
             body.append("See also:     " + bug.pop("see_also"))
-    body.append("")
+
+    if "cf_user_story" in bug:
+        body.append("")
+        body.append(bug["cf_user_story"])
     if "thetext" in description:
+        body.append("")
         body.append(description["thetext"])
 
     # Put everything together
