@@ -825,11 +825,10 @@ def comment2dict(comment, attachments):
     """
     body = []
 
+    comment.pop("commentid")
     bug_when = comment.pop("bug_when")
     body.extend([
-        "## Comment " + comment.pop("commentid"),
-        "Date: " + bug_when,
-        "From: " + email2login(comment.pop("who"),
+        "Comment Author: " + email2login(comment.pop("who"),
                                comment.pop("who.name", None)),
         "",
         comment.pop("thetext", ""),
