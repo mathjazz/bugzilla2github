@@ -780,11 +780,20 @@ def attachment2str(idx, attach):
     issue = []
 
     id = attach.pop("attachid")
-    issue.append("> Attached file: %s (%s, %s bytes)"
-                 % (attach.pop("filename"),
-                    attach.pop("type"),
-                    attach.pop("size")))
+    filename = attach.pop("filename")
+    atype = attach.pop("type")
+    size = attach.pop("size")
+    url = "https://bugzilla.mozilla.org/attachment.cgi?id=%s" % id
+
+    issue.append("> [Attached file: %s (%s, %s bytes)](%s)"
+                 % (filename,
+                    atype,
+                    size,
+                    url))
     issue.append("> Description:   " + attach.pop("desc"))
+
+    if atype.startswith('image/'):
+        issue.append("![](%s)" % url)
 
     # Ignore some fields
     fields_ignore(attach, ATTACHMENT_UNUSED_FIELDS)
