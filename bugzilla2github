@@ -374,6 +374,8 @@ def github_issue_add_beta(id, issue):
     # Convert issue to beta import API
     comments = issue.pop("comments", [])
     assignees = issue.pop("assignees", [])
+    if len(assignees) > 0:
+        issue["assignee"] = assignees[0]
     old_id = issue.pop("id", 0)
     issue_comments = {"issue": issue, "comments": comments}
 
