@@ -419,6 +419,8 @@ def github_issue_add_beta(id, issue):
                   % (issue_number, id))
             exit(1)
 
+        print("Imported bug {} as issue #{}.".format(old_id, issue_number))
+
     # Need to update the renumbering comment
     if PRESERVE_IDS:
         github_issue_update(id, issue)
@@ -445,7 +447,7 @@ def github_issue_add(id, issue):
                   MUST not exist on GitHub
         issue: Converted Bugzilla Bug to be added.
     """
-    print("\tadding a new issue #%d on GitHub..." % id)
+    # print("\tadding a new issue #%d on GitHub..." % id)
 
     if USE_BETA_API:
         return github_issue_add_beta(id, issue)
